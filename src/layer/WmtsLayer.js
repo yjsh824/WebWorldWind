@@ -367,6 +367,7 @@ define([
         WmtsLayer.formLayerConfiguration = function (wmtsLayerCapabilities, style, matrixSet, imageFormat) {
 
             var config = {};
+            //config.styleIdentifier="default";
 
             /**
              * The WMTS layer identifier of this layer.
@@ -458,9 +459,14 @@ define([
                         config.style = wmtsLayerCapabilities.style[i].identifier;
                         break;
                     }
+                    else
+                    {
+                        config.style = wmtsLayerCapabilities.style[i].identifier;
+                    }
                 }
             }
 
+            //console.log(config);
             if (!config.styleIdentifier) {
                 Logger.logMessage(Logger.LEVEL_WARNING, "WmtsLayer", "formLayerConfiguration",
                     "No default style available. A style will not be specified in tile requests.");
@@ -470,6 +476,8 @@ define([
             // set negotiation.
             var supportedTileMatrixSets = wmtsLayerCapabilities.getLayerSupportedTileMatrixSets();
 
+            // console.log(supportedTileMatrixSets);
+            // console.log(matrixSet);
             // Validate that the specified style identifier exists, or determine one if not specified.
             if (matrixSet) {
                 var tileMatrixSetFound = false;
@@ -533,6 +541,7 @@ define([
             if (!dc.terrain)
                 return;
 
+
             if (this.currentTilesInvalid
                 || !this.lasTtMVP || !dc.navigatorState.modelviewProjection.equals(this.lasTtMVP)
                 || dc.globeStateKey != this.lastGlobeStateKey) {
@@ -572,6 +581,7 @@ define([
             for (var i = 0, len = this.topLevelTiles.length; i < len; i++) {
                 var tile = this.topLevelTiles[i];
 
+                //console.log(tile);
                 tile.update(dc);
 
                 this.currentAncestorTile = null;
@@ -761,6 +771,7 @@ define([
                     this.topLevelTiles.push(this.createTile(tileMatrix, j, i));
                 }
             }
+
         };
 
         WmtsLayer.prototype.createTile = function (tileMatrix, row, column) {
@@ -914,7 +925,10 @@ define([
         };
 
         WmtsLayer.isEpsg4326Crs = function (crs) {
-            return ((crs.indexOf("EPSG") >= 0) && (crs.indexOf("4326") >= 0));
+            var b1= ((crs.indexOf("EPSG") >= 0) && (crs.indexOf("4326") >= 0));
+            //当参考系为CGCS2000时，采用WGS84处理
+            var b2=((crs.indexOf("EPSG") >= 0) && (crs.indexOf("4490") >= 0));
+            return b1||b2;
         };
 
         WmtsLayer.isEpsg3857Crs = function (crs) {
