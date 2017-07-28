@@ -57,6 +57,9 @@ requirejs(['../src/WorldWind',
                 intv=null;
             }
         });
+        /**
+         * 回到初始化
+         */
         $("#btninit").click(function(){
             wwd.navigator.range=1e7;
             wwd.navigator.heading=0;
