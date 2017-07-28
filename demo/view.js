@@ -57,5 +57,51 @@ requirejs(['../src/WorldWind',
                 intv=null;
             }
         });
+        $("#btninit").click(function(){
+            wwd.navigator.range=1e7;
+            wwd.navigator.heading=0;
+            wwd.navigator.tilt=0;
+            wwd.navigator.lookAtLocation=new WorldWind.Location(0,0);
+        });
+
+        var roundGlobe= wwd.globe,flatGlobe=null;
+        $("#cbx").change(function(){
+            var projectionName=$("#cbx").val();
+
+            if (projectionName === "3D") {
+                if (!roundGlobe) {
+                    roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
+                }
+
+                if (wwd.globe !== roundGlobe) {
+                    wwd.globe = roundGlobe;
+                }
+            } else {
+                if (!flatGlobe) {
+                    flatGlobe = new WorldWind.Globe2D();
+                }
+
+                if (projectionName === "Equirectangular") {
+                    flatGlobe.projection = new WorldWind.ProjectionEquirectangular();
+                } else if (projectionName === "Mercator") {
+                    flatGlobe.projection = new WorldWind.ProjectionMercator();
+                } else if (projectionName === "North Polar") {
+                    flatGlobe.projection = new WorldWind.ProjectionPolarEquidistant("North");
+                } else if (projectionName === "South Polar") {
+                    flatGlobe.projection = new WorldWind.ProjectionPolarEquidistant("South");
+                } else if (projectionName === "North UPS") {
+                    flatGlobe.projection = new WorldWind.ProjectionUPS("North");
+                } else if (projectionName === "South UPS") {
+                    flatGlobe.projection = new WorldWind.ProjectionUPS("South");
+                }
+
+                if (wwd.globe !== flatGlobe) {
+                    wwd.globe = flatGlobe;
+                }
+            }
+
+            wwd.redraw();
+
+        });
     })
 });
