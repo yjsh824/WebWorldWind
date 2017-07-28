@@ -4,10 +4,10 @@
  */
 
 requirejs([
-        '../src/WorldWind',
+        '../src/WorldWind',"../src/layer/TiandituLayer",
         '../examples/LayerManager'
     ],
-    function (ww,
+    function (ww,TiandituLayer,
               LayerManager) {
         "use strict";
 
@@ -31,38 +31,54 @@ requirejs([
         //http://localhost/proxy/proxy.ashx
         var serviceAddress ="http://10.68.7.162:82/proxy.ashx?http://t0.tianditu.com/img_c/wmts?service=WMTS&request=GetCapabilities&VERSION=1.0.0";
         var layerIdentifier = "img";
+        var wmtsLayer = new TiandituLayer(serviceAddress,layerIdentifier);
+        wwd.addLayer(wmtsLayer);
 
+        var gta=new WorldWind.GoToAnimator(wwd);
+        gta.animationFrequency=10;
+        gta.travelTime=4000;
+        gta.goTo(new WorldWind.Position(39.899,116.409,10e6));
         /**
          * 创建wmtm服务地图文档
          * @param xml
          */
-        var createLayer = function (xml) {
-            //当xml是字符串时，需解析为xml
-            var xmlDom=$.parseXML(xml);
-            // console.log(xmlDom);
-            //创建wmtsCapabilities
-            var wmtsCapabilities = new WorldWind.WmtsCapabilities(xmlDom);
-            //创建wmtsLayerCapabilities
-            var wmtsLayerCapabilities = wmtsCapabilities.getLayer(layerIdentifier);
-
-            //创建图层配置信息，需设置参数，参数来自地图能力文档
-            var wmtsConfig = WorldWind.WmtsLayer.formLayerConfiguration(wmtsLayerCapabilities,"default","c","tiles");
-
-            //创建wmtsLayer
-            var wmtsLayer = new WorldWind.WmtsLayer(wmtsConfig);
-            wwd.addLayer(wmtsLayer);
-
-            var gta=new WorldWind.GoToAnimator(wwd);
-            gta.animationFrequency=10;
-            gta.travelTime=4000;
-            gta.goTo(new WorldWind.Position(39.899,116.409,10e6));
-        }
+        // var createLayer = function (xmlDom) {
+        //     //当xml是字符串时，需解析为xml
+        //    // var xmlDom=$.parseXML(xml);
+        //     // // console.log(xmlDom);
+        //     // //创建wmtsCapabilities
+        //     // var wmtsCapabilities = new WorldWind.WmtsCapabilities(xmlDom);
+        //     // //创建wmtsLayerCapabilities
+        //     // var wmtsLayerCapabilities = wmtsCapabilities.getLayer(layerIdentifier);
+        //     //
+        //     // //创建图层配置信息，需设置参数，参数来自地图能力文档
+        //     // var wmtsConfig = WorldWind.WmtsLayer.formLayerConfiguration(wmtsLayerCapabilities,"default","c","tiles");
+        //
+        //     //创建wmtsLayer
+        //     var wmtsLayer = new TiandituLayer(xmlDom,layerIdentifier);
+        //     wwd.addLayer(wmtsLayer);
+        //
+        //     var gta=new WorldWind.GoToAnimator(wwd);
+        //     gta.animationFrequency=10;
+        //     gta.travelTime=4000;
+        //     gta.goTo(new WorldWind.Position(39.899,116.409,10e6));
+        // }
 
         // Called if an error occurs during WMTS Capabilities document retrieval
-        var logError = function (jqXhr, text, exception) {
-            console.log("There was a failure retrieving the capabilities document: " + text + " exception: " + exception);
-        };
+        // var logError = function (jqXhr, text, exception) {
+        //     console.log("There was a failure retrieving the capabilities document: " + text + " exception: " + exception);
+        // };
+        //
+        // $.ajax({
+        //     url:serviceAddress,
+        //     success:createLayer,
+        //     error:logError,
+        //     dataType:"xml",
+        //     cache:true,
+        //     async:false,
+        //     type:'get'
+        // });
 
         //异步加载地图服务能力文档
-        $.get(serviceAddress).done(createLayer).fail(logError);
+        //$.get(serviceAddress).done(createLayer).fail(logError);
     });
