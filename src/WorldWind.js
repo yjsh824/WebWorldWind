@@ -25,6 +25,7 @@ define([ // PLEASE KEEP ALL THIS IN ALPHABETICAL ORDER BY MODULE NAME (not direc
         './layer/BMNGLayer',
         './layer/BMNGOneImageLayer',
         './layer/BMNGRestLayer',
+        "./layer/TiandituLayer",
         './geom/BoundingBox',
         './gesture/ClickRecognizer',
         './formats/collada/ColladaLoader',
@@ -249,6 +250,7 @@ define([ // PLEASE KEEP ALL THIS IN ALPHABETICAL ORDER BY MODULE NAME (not direc
               BMNGLayer,
               BMNGOneImageLayer,
               BMNGRestLayer,
+              TiandituLayer,
               BoundingBox,
               ClickRecognizer,
               ColladaLoader,
@@ -682,6 +684,7 @@ define([ // PLEASE KEEP ALL THIS IN ALPHABETICAL ORDER BY MODULE NAME (not direc
         WorldWind['BMNGLayer'] = BMNGLayer;
         WorldWind['BMNGOneImageLayer'] = BMNGOneImageLayer;
         WorldWind['BMNGRestLayer'] = BMNGRestLayer;
+        WorldWind['TiandituLayer'] = TiandituLayer;
         WorldWind['BoundingBox'] = BoundingBox;
         WorldWind['ClickRecognizer'] = ClickRecognizer;
         WorldWind['ColladaLoader'] = ColladaLoader;

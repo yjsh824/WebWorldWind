@@ -31,7 +31,8 @@ requirejs([
         //http://localhost/proxy/proxy.ashx
         var serviceAddress ="http://10.68.7.162:82/proxy.ashx?http://t0.tianditu.com/img_c/wmts?service=WMTS&request=GetCapabilities&VERSION=1.0.0";
         var layerIdentifier = "img";
-        var wmtsLayer = new TiandituLayer(serviceAddress,layerIdentifier);
+       var wmtsLayer = new TiandituLayer(serviceAddress,layerIdentifier);
+        //var wmtsLayer = new TiandituLayer();
         wwd.addLayer(wmtsLayer);
 
         var gta=new WorldWind.GoToAnimator(wwd);

@@ -4,6 +4,13 @@
 define(["../layer/WmtsLayer","../ogc/wmts/WmtsCapabilities"],function(WmtsLayer,WmtsCapabilities){
     "use strict";
     var TiandituLayer=function(serviceAddress,layerIdentifier){
+        var pserviceAddress ="http://47.92.110.235/proxy/proxy.jsp?http://t0.tianditu.com/img_c/wmts?service=WMTS&request=GetCapabilities&VERSION=1.0.0";
+        var playerIdentifier = "img";
+
+        serviceAddress=typeof(serviceAddress)=="undefined"?pserviceAddress:serviceAddress;
+        layerIdentifier=typeof(layerIdentifier)=="undefined"?playerIdentifier:layerIdentifier;
+
+
         var xmlDom;
         $.ajax({
             url:serviceAddress,

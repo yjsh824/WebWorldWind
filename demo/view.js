@@ -9,7 +9,7 @@ requirejs(['../src/WorldWind',
     var wwd=new WorldWind.WorldWindow("canvasOne");
 
     var layers = [
-        {layer: new WorldWind.BMNGLayer(),enabled: true},
+        {layer: new WorldWind.TiandituLayer(),enabled: true},
         {layer: new WorldWind.CompassLayer(), enabled: true},
         {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
         {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
