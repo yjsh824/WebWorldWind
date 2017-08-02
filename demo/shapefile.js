@@ -34,14 +34,14 @@ requirejs([
     placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/white-dot.png";
 
 
-    var drawpolygon=function(pts){
+    var drawpolygon=function(pts,height){
         var boundaries = [];
         boundaries[0] = []; // outer boundary
 
 
         for(var i=0;i<pts.length;i=i+2)
         {
-            boundaries[0].push(new WorldWind.Position(pts[i+1],pts[i],100));
+            boundaries[0].push(new WorldWind.Position(pts[i+1],pts[i],height));
         }
 
 
@@ -66,7 +66,7 @@ requirejs([
         polygonAttributes.outlineColor = WorldWind.Color.WHITE;
         polygonAttributes.interiorColor = WorldWind.Color.WHITE;
         polygonAttributes.drawVerticals = polygon.extrude;
-        polygonAttributes.applyLighting = true;
+        polygonAttributes.applyLighting = false;
         polygonAttributes.depthTest=false;
         polygon.attributes = polygonAttributes;
         // var highlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
@@ -80,8 +80,8 @@ requirejs([
     wwd.addLayer(polygonsLayer);
     var shapeConfigurationCallback = function (attributes, record) {
         // console.log(attributes);
-        // console.log(record);
-        drawpolygon(record._parts[0]);
+        var height= record.attributes.values["height"];
+        drawpolygon(record._parts[0],height);
         var configuration = {};
         configuration.name = attributes.values.name || attributes.values.Name || attributes.values.NAME;
 
@@ -102,14 +102,14 @@ requirejs([
                 0.375 + 0.5 * Math.random(),
                 0.375 + 0.5 * Math.random(),
                 0.375 + 0.5 * Math.random(),
-                1.0);
+                0.0);
 
             // Paint the outline in a darker variant of the interior color.
             configuration.attributes.outlineColor = new WorldWind.Color(
                 0.5 * configuration.attributes.interiorColor.red,
                 0.5 * configuration.attributes.interiorColor.green,
                 0.5 * configuration.attributes.interiorColor.blue,
-                1.0);
+                0.0);
         }
 
         return configuration;
