@@ -27,13 +27,14 @@ requirejs([
         var modelLayer = new WorldWind.RenderableLayer("model");
         wwd.addLayer(modelLayer);
 
-        var position = new WorldWind.Position(45, -100,10e2);
+        var position = new WorldWind.Position(45, -100,0);
         var colladaLoader = new WorldWind.ColladaLoader(position);
-        colladaLoader.init({dirPath: '../examples/collada_models/duck/'});
-        colladaLoader.load('duck.dae', function (scene) {
-            scene.scale = 5000;
-            scene.xRotation=90;
+        colladaLoader.init({dirPath: '../examples/collada_models/'});
+        colladaLoader.load('1.dae', function (scene) {
+            scene.scale = 1;
+           //scene.xRotation=-50;
             modelLayer.addRenderable(scene);
+            wwd.goTo(new WorldWind.Position(45, -100,10000));
         });
 
     });

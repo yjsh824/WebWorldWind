@@ -35,10 +35,10 @@ requirejs([
     annotationAttributes.insets = new WorldWind.Insets(10, 10, 10, 10);//指示框内部的padding
 
     // Set a location for the annotation to point to and create it.
-    var location = new WorldWind.Position(39.899,116.409, 1e2);
+    var location = new WorldWind.Position(39.912984627,116.3909252265, 1e2);
     var annotation = new WorldWind.Annotation(location, annotationAttributes);
     // Text can be assigned to the annotation after creating it.
-    annotation.label = "消息指示框。\n大家好";
+    annotation.label = "这里是故宫。\n这里是午门。";
 
     // Create and add the annotation layer to the World Window's layer list
     var annotationsLayer = new WorldWind.RenderableLayer("Annotations");
