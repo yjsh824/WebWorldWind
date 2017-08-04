@@ -2,31 +2,21 @@
  * Created by yuanjs on 2017/8/4.
  */
 define([
-    '../../src/WorldWind'
-],function(ww){
+    '../../src/WorldWind','../Js/BaseRenderable'
+],function(ww,BaseRenderable){
     "use strict";
     var Road=function(wwd,layer){
         this.wwd=wwd;
         if(typeof(layer)=="undefined") {
-            var roadlayer = new WorldWind.RenderableLayer("roadlayer");
-            roadlayer.displayName = "roadlayer";
-            roadlayer.maxActiveAltitude = 9e3;
-            this.roadlayer = roadlayer;
-            this.wwd.addLayer(this.roadlayer);
+            BaseRenderable.call(this,wwd,"roadlayer");
         }
         else
         {
-            this.roadlayer=layer;
+            this.layer=layer;
         }
     };
 
-    Object.defineProperties(Road.prototype,{
-        Layer:{
-            get:function(){
-                return this.roadlayer;
-            }
-        }
-    });
+    Road.prototype=Object.create(BaseRenderable.prototype);
 
     Road.prototype.drawRoad=function(boundary)
     {
@@ -37,7 +27,7 @@ define([
         attributes.outlineWidth=3;
 
         var surfacepolygon=new WorldWind.SurfacePolygon(boundary, attributes);
-        this.roadlayer.addRenderable(surfacepolygon);
+        this.layer.addRenderable(surfacepolygon);
     };
         return Road;
 });
