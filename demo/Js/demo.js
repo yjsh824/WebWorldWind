@@ -2,8 +2,8 @@
  * Created by yuanjs on 2017/8/4.
  */
 requirejs([
-    '../../src/WorldWind','../Js/building',"../Js/Road","../Js/Tree"
-],function(ww,Building,Road,Tree) {
+    '../../src/WorldWind','../Js/building',"../Js/Road","../Js/Tree","../Js/Car"
+],function(ww,Building,Road,Tree,Car) {
     "use strict";
 
     //初始化控件
@@ -42,8 +42,13 @@ requirejs([
 
 
     var tree=new Tree(wwd);
+    tree.Layer.maxActiveAltitude=400;
     tree.drawTree(pts);
 
-    wwd.navigator.tilt=75;
-    wwd.goTo(new WorldWind.Position(36.665,117.136, 2e3));
+     wwd.navigator.tilt=75;
+    wwd.goTo(new WorldWind.Position(36.665,117.136, 2e3),function(){
+        var car=new Car(wwd);
+        //car.drawCar(new WorldWind.Position(36.66098942981116, 117.135543660008202,1e2),new WorldWind.Position(36.669475, 117.1292725,1e2));
+        car.drawCar(new WorldWind.Position(36.669475, 117.1292725,1e2),new WorldWind.Position(36.66098942981116, 117.135543660008202,1e2));
+    });
 });

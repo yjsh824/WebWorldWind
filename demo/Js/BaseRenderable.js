@@ -8,7 +8,7 @@ define([
 
         var baselayer = new WorldWind.RenderableLayer(layername);
         baselayer.displayName = layername;
-        baselayer.maxActiveAltitude = 9e3;
+        baselayer.maxActiveAltitude = 5e3;
         this.layer = baselayer;
         this.wwd.addLayer(this.layer);
 
