@@ -132,14 +132,24 @@ requirejs([
     var modelLayer = new WorldWind.RenderableLayer("model");
     wwd.addLayer(modelLayer);
 
+    var tree;
     var position = new WorldWind.Position(36.6627564, 117.1349503,0);
     var colladaLoader = new WorldWind.ColladaLoader(position);
-    colladaLoader.init({dirPath: '../examples/collada_models/'});
-    colladaLoader.load('1.dae', function (scene) {
+    colladaLoader.init({dirPath: '../examples/collada_models/car/'});
+    colladaLoader.load('dae.dae', function (scene) {
         scene.scale = 0.1;
         scene.altitudeMode=WorldWind.RELATIVE_TO_GROUND;
-        //scene.xRotation=-50;
-        modelLayer.addRenderable(scene);
+        scene.xRotation=90;
+
+        scene.yRotation=180;
+        tree=scene;
+        modelLayer.addRenderable(tree);
+        setInterval(function(){
+            //modelLayer.removeRenderable(tree);
+            tree.position= new WorldWind.Position( tree.position.latitude+0.0001, 117.1349503,0);
+            //console.log(tree);
+           // modelLayer.removeRenderable(tree);
+        },41);
         //wwd.goTo(new WorldWind.Position(45, -100,10000));
     });
 
