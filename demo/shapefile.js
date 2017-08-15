@@ -81,7 +81,7 @@ requirejs([
     var shapeConfigurationCallback = function (attributes, record) {
         // console.log(attributes);
         var height= record.attributes.values["height"];
-        drawpolygon(record._parts[0],height);
+        //drawpolygon(record._parts[0],height);
         var configuration = {};
         configuration.name = attributes.values.name || attributes.values.Name || attributes.values.NAME;
 
@@ -102,14 +102,14 @@ requirejs([
                 0.375 + 0.5 * Math.random(),
                 0.375 + 0.5 * Math.random(),
                 0.375 + 0.5 * Math.random(),
-                0.0);
+                1.0);
 
             // Paint the outline in a darker variant of the interior color.
             configuration.attributes.outlineColor = new WorldWind.Color(
                 0.5 * configuration.attributes.interiorColor.red,
                 0.5 * configuration.attributes.interiorColor.green,
                 0.5 * configuration.attributes.interiorColor.blue,
-                0.0);
+               1.0);
         }
 
         return configuration;
